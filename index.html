@@ -41,9 +41,12 @@
     <h1>
         Wegmans API Hackin'
     </h1>
-    <!-- input for
 
-</div><!-- /.container -->
+    <h2>
+        Pick a beer and see its popularity in ROC stores
+    </h2>
+
+</div>
 
 <script type="text/javascript">
   $(function() {
@@ -51,7 +54,7 @@
     var key = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Ino0NHdNZEh1OHdLc3VtcmJmYUs5OHF4czVZSSIsImtpZCI6Ino0NHdNZEh1OHdLc3VtcmJmYUs5OHF4czVZSSJ9.eyJhdWQiOiJodHRwczovL3dlZ21hbnMtZXMuYXp1cmUtYXBpLm5ldCIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzEzMThkNTdmLTc1N2ItNDViMy1iMWIwLTliM2MzODQyNzc0Zi8iLCJpYXQiOjE1MTcwODgwMTUsIm5iZiI6MTUxNzA4ODAxNSwiZXhwIjoxNTE3MDkxOTE1LCJhaW8iOiJZMk5nWUhqcTllWThrOGFQU3hKUzh4NVc5OHdSQWdBPSIsImFwcGlkIjoiMmZhOGY3MWYtY2VjNS00OWU5LWJkMGEtMjI3ODBkYzI2YTliIiwiYXBwaWRhY3IiOiIxIiwiaWRwIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvMTMxOGQ1N2YtNzU3Yi00NWIzLWIxYjAtOWIzYzM4NDI3NzRmLyIsIm9pZCI6ImY0NTIwYmRmLTc1NWItNGY5Yi1iNWJkLTI4NGJiYTI2MTEwOSIsInN1YiI6ImY0NTIwYmRmLTc1NWItNGY5Yi1iNWJkLTI4NGJiYTI2MTEwOSIsInRpZCI6IjEzMThkNTdmLTc1N2ItNDViMy1iMWIwLTliM2MzODQyNzc0ZiIsInV0aSI6InRuZU1VNUpqMUU2MWY0RFRGblVQQUEiLCJ2ZXIiOiIxLjAifQ.N4Qq6GVTZXmDZl-zBR5mbY6ebLg0dGL9dll2Q7aLBL5oaRlz12fUFi7oIaMM8vV6pLb2OOH3IPo1qsyVhbURBIIgUgjUkSMDwhbHYoVWp9W-Wed5mv035jZBl4AEGjuq4vBjd_zMqFEZ01FklXazki-h-ue9O9aCSom_wrYkXvAyTXGJi_Or77WQGzxfqN-xVpmJkL4l2s0HCm7rY-_tBUwf0oRlT4HWLHMoecdPEiYEVL58h5LQPRh-MOZSuICyi2JewqN0pXYdeCHZpBTSYwJDKF5Kn9obUhGqXsds0aMg-cAIxfSUB_sAqfp3MoYGQAKBzDiP8c9B9GYHU3CA2A";
 
     $.ajax({
-      url: "https://wegmans-es.azure-api.net/productpublic/products/search?criteria=fat",
+      url: "https://wegmans-es.azure-api.net/productpublic/products/search?criteria="+param,
       beforeSend: function(xhrObj){
         // Request headers
         xhrObj.setRequestHeader("Product-Subscription-Key","7a2da79699e74dd0af5b8158f6134fbd");
@@ -63,12 +66,13 @@
       data: "{body}"
     })
       .done(function(data) {
-        console.log("success" + data.Results[0].ItemNumber);
+        console.log("success" + data);
       })
       .fail(function() {
         console.log("error");
       });
   });
 </script>
+
 </body>
 </html>
