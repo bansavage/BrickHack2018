@@ -41,57 +41,55 @@
     <h1>
         Wegmans API Hackin'
     </h1>
-
-    <h2>
-        Pick a beer and see its popularity in ROC stores
-    </h2>
+    City Name
+    <br>
+    <input type="text" id="zoneName" name="zoneName" value="">
+    <br>
+    <button type="button" onclick="run()">Click Me!</button>
 
 </div>
 
-<form action="/index.html" id="zoneName">
-    City Name <br>
-    <input type="text" name="zoneName" value="">
-    <br>
-    <button><input type="submit" value="Submit"></button>
-</form>
+
+
 
 <script type="text/javascript">
-  $(function() {
 
-    var authKey = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Ino0NHdNZEh1OHdLc3VtcmJmYUs5OHF4czVZSSIsImtpZCI6Ino0NHdNZEh1OHdLc3VtcmJmYUs5OHF4czVZSSJ9.eyJhdWQiOiJodHRwczovL3dlZ21hbnMtZXMuYXp1cmUtYXBpLm5ldCIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzEzMThkNTdmLTc1N2ItNDViMy1iMWIwLTliM2MzODQyNzc0Zi8iLCJpYXQiOjE1MTcwOTE5NjAsIm5iZiI6MTUxNzA5MTk2MCwiZXhwIjoxNTE3MDk1ODYwLCJhaW8iOiJZMk5nWU9BNzd0MVE5WExDVWhQalA5eGZ4WHhmQVFBPSIsImFwcGlkIjoiMmZhOGY3MWYtY2VjNS00OWU5LWJkMGEtMjI3ODBkYzI2YTliIiwiYXBwaWRhY3IiOiIxIiwiaWRwIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvMTMxOGQ1N2YtNzU3Yi00NWIzLWIxYjAtOWIzYzM4NDI3NzRmLyIsIm9pZCI6ImY0NTIwYmRmLTc1NWItNGY5Yi1iNWJkLTI4NGJiYTI2MTEwOSIsInN1YiI6ImY0NTIwYmRmLTc1NWItNGY5Yi1iNWJkLTI4NGJiYTI2MTEwOSIsInRpZCI6IjEzMThkNTdmLTc1N2ItNDViMy1iMWIwLTliM2MzODQyNzc0ZiIsInV0aSI6ImE1TFRMNmRONWstZWVmQVZISzhOQUEiLCJ2ZXIiOiIxLjAifQ.WjHU0XcdmpDMRvujqw3rWn-LPSkMkXv-IO-zhDTuZAoUTfa_pq2Toh9rFUpCL6VF0CocbSVZS7un9LczbIra0sd-tLZ8f70v9OA7akSp_IiHFDGKe1bbs6spBb5SV7rK1te4Bu3A9Wr8CIkEiZJO1mm1neVUHqdMzNBxrRfbuZYafMYCxOO2nrJrjbGgd_Tz1xmvX6PZa6L-F1YdPpSJk-ME5zn9xpSaWMfqfHa8gvOdypysatah-E9zJ11hFLiE9fjIKnapGKD1mS3-f96Xw9Mqq16-Ngje6b0vBpCekiBEjI1F4eVzUsOvJLeZAmSON2i-TDfaxMHuJ420rq3aDA";
-    var subKey = "ad393547cfc348cb8ad7ce91e1d5586f";
+    function run(){
+      var authKey = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Ino0NHdNZEh1OHdLc3VtcmJmYUs5OHF4czVZSSIsImtpZCI6Ino0NHdNZEh1OHdLc3VtcmJmYUs5OHF4czVZSSJ9.eyJhdWQiOiJodHRwczovL3dlZ21hbnMtZXMuYXp1cmUtYXBpLm5ldCIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzEzMThkNTdmLTc1N2ItNDViMy1iMWIwLTliM2MzODQyNzc0Zi8iLCJpYXQiOjE1MTcwOTE4NDYsIm5iZiI6MTUxNzA5MTg0NiwiZXhwIjoxNTE3MDk1NzQ2LCJhaW8iOiJZMk5nWUZnU3JIZGVmdEZUUHZYRWZuZFdxWXVmQUE9PSIsImFwcGlkIjoiMmZhOGY3MWYtY2VjNS00OWU5LWJkMGEtMjI3ODBkYzI2YTliIiwiYXBwaWRhY3IiOiIxIiwiaWRwIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvMTMxOGQ1N2YtNzU3Yi00NWIzLWIxYjAtOWIzYzM4NDI3NzRmLyIsIm9pZCI6ImY0NTIwYmRmLTc1NWItNGY5Yi1iNWJkLTI4NGJiYTI2MTEwOSIsInN1YiI6ImY0NTIwYmRmLTc1NWItNGY5Yi1iNWJkLTI4NGJiYTI2MTEwOSIsInRpZCI6IjEzMThkNTdmLTc1N2ItNDViMy1iMWIwLTliM2MzODQyNzc0ZiIsInV0aSI6ImhyakZwUVFCZWtPdW9YeG0tT29PQUEiLCJ2ZXIiOiIxLjAifQ.Nyp_p7eR1L3WiY_i283bh1Sxk-R9iWQK3xfqJnM7o684fa9NwZEFCZtaXW8Of0GRbzGfn2gdjPezxVb-qzSn3VLjJ8cseq3TBufmcGlqkY45sVDVw3UylojbRGEt9OELwbqL2fi82BvgulIo-CPQsw-sD_75BooAP_VPUw-NgssMvOHnRqCzUQuomBYRLicebXjq1uC83BkmlBdH37Jbr2NG4cxM_w9xbCjr6VHTjq_FkIbsfVpS_S3t509FQS_HZpZLMzXc_bZJDs_X0m9nxeaxowGL5RFiCQrGK2wpCEKbuDP-bK1b8jfoB5BGzDfDLoUWlHQfLZSPvRRL4l9tBQ";
+      var subKey = "7a2da79699e74dd0af5b8158f6134fbd";
 
-    var zoneName = document.getElementById("zoneName").value;
+      var zoneName = document.getElementById("zoneName").value;
+      console.log(zoneName);
 
 
-    $.ajax({
-      url: "https://wegmans-es.azure-api.net/locationpublic/location/stores?zoneName=" + zoneName,
-      //url: "https://wegmans-es.azure-api.net/productpublic/productavailability/700632/stores",
-      beforeSend: function(xhrObj){
-        // Request headers
-        xhrObj.setRequestHeader("Location-Subscription-Key", subKey);
-        xhrObj.setRequestHeader("Product-Subscription-Key",subKey);
-        xhrObj.setRequestHeader("Authorization",authKey);
-        xhrObj.setRequestHeader("Availability-Subscription-Key", subKey);
+      $.ajax({
+        url: "https://wegmans-es.azure-api.net/locationpublic/location/stores?zoneName=" + zoneName,
+        //url: "https://wegmans-es.azure-api.net/productpublic/productavailability/700632/stores",
+        beforeSend: function(xhrObj){
+          // Request headers
+          xhrObj.setRequestHeader("Location-Subscription-Key", subKey);
+          xhrObj.setRequestHeader("Product-Subscription-Key",subKey);
+          xhrObj.setRequestHeader("Authorization",authKey);
+          xhrObj.setRequestHeader("Availability-Subscription-Key", subKey);
 
-      },
-      type: "GET",
-      // Request body
-      data: "{body}"
-    })
-      .done(function(data) {
-        console.log("success" + data[0].StoreNumber);
-        /*for(var name in data) {
-            console.log(name);
-        }*/
-        for(i = 0; i < 50; i++) {
-            console.log(data[i].StoreNumber + ", ");
-        }
+        },
+        type: "GET",
+        // Request body
+        data: "{body}"
       })
-      .fail(function() {
-        console.log("error");
-      });
-  });
+        .done(function(data) {
+          console.log("success" + data[0].StoreNumber);
+          /*for(var name in data) {
+              console.log(name);
+          }*/
+          for(i = 0; i < 50; i++) {
+            console.log(data[i].StoreNumber + ", ");
+          }
+        })
+        .fail(function() {
+          console.log("error");
+        });
+    }
 </script>
 
 </body>
