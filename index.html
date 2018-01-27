@@ -45,14 +45,19 @@
     <br>
     <input type="text" id="zoneName" name="zoneName" value="">
     <br>
-    <button type="button" onclick="run()">Click Me!</button>
+    <button id="submit" type="button" onclick="run()">Click Me!</button>
 
 </div>
 
 
-
-
 <script type="text/javascript">
+
+      //attach 'enter' key to button
+      $("#zoneName").keyup(function(event) {
+        if (event.keyCode === 13) {
+          $("#submit").click();
+        }
+      });
 
     function run(){
       var authKey = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Ino0NHdNZEh1OHdLc3VtcmJmYUs5OHF4czVZSSIsImtpZCI6Ino0NHdNZEh1OHdLc3VtcmJmYUs5OHF4czVZSSJ9.eyJhdWQiOiJodHRwczovL3dlZ21hbnMtZXMuYXp1cmUtYXBpLm5ldCIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzEzMThkNTdmLTc1N2ItNDViMy1iMWIwLTliM2MzODQyNzc0Zi8iLCJpYXQiOjE1MTcwOTE4NDYsIm5iZiI6MTUxNzA5MTg0NiwiZXhwIjoxNTE3MDk1NzQ2LCJhaW8iOiJZMk5nWUZnU3JIZGVmdEZUUHZYRWZuZFdxWXVmQUE9PSIsImFwcGlkIjoiMmZhOGY3MWYtY2VjNS00OWU5LWJkMGEtMjI3ODBkYzI2YTliIiwiYXBwaWRhY3IiOiIxIiwiaWRwIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvMTMxOGQ1N2YtNzU3Yi00NWIzLWIxYjAtOWIzYzM4NDI3NzRmLyIsIm9pZCI6ImY0NTIwYmRmLTc1NWItNGY5Yi1iNWJkLTI4NGJiYTI2MTEwOSIsInN1YiI6ImY0NTIwYmRmLTc1NWItNGY5Yi1iNWJkLTI4NGJiYTI2MTEwOSIsInRpZCI6IjEzMThkNTdmLTc1N2ItNDViMy1iMWIwLTliM2MzODQyNzc0ZiIsInV0aSI6ImhyakZwUVFCZWtPdW9YeG0tT29PQUEiLCJ2ZXIiOiIxLjAifQ.Nyp_p7eR1L3WiY_i283bh1Sxk-R9iWQK3xfqJnM7o684fa9NwZEFCZtaXW8Of0GRbzGfn2gdjPezxVb-qzSn3VLjJ8cseq3TBufmcGlqkY45sVDVw3UylojbRGEt9OELwbqL2fi82BvgulIo-CPQsw-sD_75BooAP_VPUw-NgssMvOHnRqCzUQuomBYRLicebXjq1uC83BkmlBdH37Jbr2NG4cxM_w9xbCjr6VHTjq_FkIbsfVpS_S3t509FQS_HZpZLMzXc_bZJDs_X0m9nxeaxowGL5RFiCQrGK2wpCEKbuDP-bK1b8jfoB5BGzDfDLoUWlHQfLZSPvRRL4l9tBQ";
