@@ -35,6 +35,7 @@ var StoreNum = [];
 166446 //budweiser
 */
 
+$('html').css('cursor','progress');
 $( document ).ready(function() {
 
   //get keys for weggies api
@@ -56,16 +57,39 @@ $( document ).ready(function() {
   };
   $.ajax(settings).done(function (response) {
     authKey += response.access_token;
-    console.log(authKey);
+    //console.log(authKey);
   });
+  $('html').css('cursor','auto');
 });
 
 //on click change btn to grey
 $(".logo").click(function() {
   $(this).css("filter","grayscale(1)");
+  //change text here
 });
 
 async function run(beerID){
+
+  switch (beerID) {
+    case 112985: //bud
+      $('#budkey').text(BeerSkus.length+1);
+      break;
+    case 90188:
+      $('#coorskey').text(BeerSkus.length+1);
+      break;
+    case 237942:
+      $('#gennykey').text(BeerSkus.length+1);
+      break;
+    case 127425:
+      $('#millerkey').text(BeerSkus.length+1);
+      break;
+    case 325152:
+      $('#rollingkey').text(BeerSkus.length+1);
+      break;
+    case 173308:
+      $('#pbrkey').text(BeerSkus.length+1);
+      break;
+  }
 
   var zoneName = document.getElementById("zoneName").value;
   //console.log(zoneName);

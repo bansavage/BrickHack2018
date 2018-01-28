@@ -62,3 +62,10 @@ a{
 .ct-chart{
     margin-top:3em;
 }
+.keycolor{
+    height:1em;
+}
+.keynum{
+    text-align: center;
+    font-weight:bold;
+}
