@@ -1,0 +1,33 @@
+#beer-logo-bud{
+    background: url(budlight.jpg);
+}
+#beer-logo-coors{
+    background: url(coors.png);
+}
+#beer-logo-genny{
+    background: url(genny.jpg);
+}
+#beer-logo-bud,#beer-logo-coors,#beer-logo-genny{
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: CONTAIN;
+    background-position: CENTER CENTER;
+    background-repeat: NO-REPEAT;
+    height: 10em;
+}
+a{
+    cursor:pointer;
+}
+.col-sm-4:hover{
+    border:1px solid #333;
+}
+#zoneName{
+    margin-bottom: 2em;
+}
+h1{
+    background: black;
+    color: white;
+    padding: .25em;
+    text-align: center;
+}
