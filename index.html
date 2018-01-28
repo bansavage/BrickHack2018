@@ -97,45 +97,49 @@
         }
       });
 
-    var BeerVelocities = {};
+    var BeerVelocities = [ [], [], [] ]; // Score for each beer type
+    var StoreNames = []; // The names of stores seen
+    var beerSkus = []; // The Skus of beers seen
+
 
     function run(beerID){
         var zoneName = document.getElementById("zoneName").value;
-        console.log(zoneName);
+        //console.log(zoneName);
 
+        if( !beerSkus.includes(beerID)) {
+            beerSkus.push(beerID);
+            //console.log("BEER SKUS: " + beerSkus.length);
 
-        var promise = $.ajax({
-            url: "https://wegmans-es.azure-api.net/locationpublic/location/stores?zoneName=" + zoneName,
-            //url: "https://wegmans-es.azure-api.net/productpublic/productavailability/700632/stores",
-            beforeSend: setHeaders,
-            type: "GET",
-            // Request body
-            data: "{body}"
-        })
-        .done(function(data) {
-          /*for(var name in data) {
-              console.log(name);
-          }*/
+            var promise = $.ajax({
+                url: "https://wegmans-es.azure-api.net/locationpublic/location/stores?zoneName=" + zoneName,
+                //url: "https://wegmans-es.azure-api.net/productpublic/productavailability/700632/stores",
+                beforeSend: setHeaders,
+                type: "GET",
+                // Request body
+                data: "{body}"
+            })
+            .done(function(data) {
+              for(i = 0; i < data.length; i++) {
+                  console.log(data[i].Name);
+                  StoreNames.push(data[i].Name);
+                  getAvailabilityAtStore(data[i].StoreNumber, beerID);
+              }
+            })
+            .fail(function() {
+              console.log("error");
+            });
+        }
 
-          for(i = 0; i < data.length; i++) {
-              console.log(data[i].Name);
-
-              getAvailabilityAtStore(data[i].StoreNumber,beerID);
-          }
-
-
-        })
-        .fail(function() {
-          console.log("error");
-        });
-
-        //console.log("Num Entries: " + Object.keys(BeerVelocities).length.toString());
         console.log(BeerVelocities);
+        console.log(StoreNames);
 
-        graphResults(BeerVelocities);
+
+//        graphResults(BeerVelocities);
+
     }
 
-    function graphResults(velocities) {
+/*    function graphResults(velocities) {
+
         var keys = [];
 
         for (var key in velocities) {
@@ -143,7 +147,7 @@
             keys.Add(key);
         }
         new Chartist.Bar('.ct-chart', {
-          labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+          labels: StoreNames
           series: [
             [5, 4, 3, 7, 5, 10, 3],
             [3, 2, 9, 5, 4, 6, 4]
@@ -158,17 +162,9 @@
         });
 
 
-    }
-
-
-    var beerSkus = [ 112985 , 90188, 237942 ]; // Bud light, Genesse, Coors
-
+    }*/
 
     function getAvailabilityAtStore(storeNum,beerID) {
-     //console.log(storeNum + ", ");
-        for(b = 0; b < beerSkus.length; b++) {
-            //console.log(beerSkus[b]);
-
             $.ajax({
                 url: "https://wegmans-es.azure-api.net/productpublic/productavailability/" + beerID + "/" + storeNum,
                 //url: "https://wegmans-es.azure-api.net/productpublic/productavailability/700632/stores",
@@ -178,20 +174,14 @@
                 data: "{body}"
               })
                 .done(function(availability) {
-                    BeerVelocities[
-                        storeNum.toString()+ "-" + availability[0].Sku.toString()
-                    ] = availability[0].Velocity;
-
-                    //console.log(" At store " + storeNum + " sku:" + availability[0].Sku + " has velocity of: " + availability[0].Velocity);
+                    //console.log("availability");
+                    BeerVelocities[beerSkus.length - 1].push(availability[0].Velocity);
                     //console.log(BeerVelocities);
 
                 })
                 .fail(function() {
                   console.log("error");
                 });
-
-
-       }
 
     }
 
