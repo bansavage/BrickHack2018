@@ -4,7 +4,7 @@ var chart;
 var authKey = "Bearer ";
 var subKey = "7a2da79699e74dd0af5b8158f6134fbd";
 
-var BeerVelocities = [ [], [], [] ]; // Score for each beer type
+var BeerVelocities = {}; // Score for each beer type
 var StoreNames = []; // The names of stores seen
 var BeerSkus = []; // The Skus of beers seen
 var StoreNum = [];
@@ -28,7 +28,6 @@ $( document ).ready(function() {
       "client_secret": "A8N7VeeCdFD5N4OxeQT1gFaXNStrxieEplYl3SYdxTs="
     }
   };
-
   $.ajax(settings).done(function (response) {
     authKey += response.access_token;
     console.log(authKey);
@@ -108,7 +107,9 @@ function getAvailabilityAtStore(storeNum,beerID) {
   })
     .done(function(availability) {
       //console.log("availability");
-      BeerVelocities[BeerSkus.length - 1].push(availability[0].Velocity);
+      if(BeerVelocities[beerID] == null) BeerVelocities[beerID] = [];
+
+      BeerVelocities[beerID].push(availability[0].Velocity);
       var event = new Event('DOMContentLoaded');
       document.dispatchEvent(event);
       //console.log(BeerVelocities);
@@ -128,22 +129,24 @@ function setHeaders(xhrObj) {
 }
 
 function zoneChanged() {
-  BeerVelocities = [ [], [], [] ];
+  BeerVelocities = {};
   StoreNames = [];
   BeerSkus = [];
+  console.log("DATA CLEARED");
 }
+
+
 
 document.addEventListener('DOMContentLoaded',function(){
   //console.log(StoreNames);
   console.log(BeerVelocities);
-
+  vels = [];
+    for (key in BeerVelocities) {
+        vels.push(BeerVelocities[key]);
+    }
   chart = new Chartist.Bar('.ct-chart', {
     labels: StoreNames,
-    series: [
-      BeerVelocities[0],
-      BeerVelocities[1],
-      BeerVelocities[2]
-    ]
+    series: vels
   }, {
     seriesBarDistance: 20,
     reverseData: true,
