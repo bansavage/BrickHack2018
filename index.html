@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSSample</title>
+    <title>Popular Beers</title>
     <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -10,10 +10,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Chartist -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
     <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
     <style>
-
         #beer-logo-bud{
             background: url(budlight.jpg);
         }
@@ -28,12 +28,24 @@
             -moz-background-size: cover;
             -o-background-size: cover;
             background-size: CONTAIN;
-            BACKGROUND-POSITION: CENTER CENTER;
-            BACKGROUND-REPEAT: NO-REPEAT;
+            background-position: CENTER CENTER;
+            background-repeat: NO-REPEAT;
             height: 10em;
         }
         a{
             cursor:pointer;
+        }
+        .col-sm-4:hover{
+            border:1px solid #333;
+        }
+        #zoneName{
+            margin-bottom: 2em;
+        }
+        h1{
+            background: black;
+            color: white;
+            padding: .25em;
+            text-align: center;
         }
     </style>
 </head>
@@ -41,32 +53,43 @@
 <body>
 
 <div class="container">
-    <h1>
-        Wegmans API Hackin'
-    </h1>
-    City Name
-    <br>
-    <input type="text" id="zoneName" name="zoneName" value="">
-    <br>
-    <!-- <button id="submit" type="button" >Click Me!</button> -->
 
+    <!-- Title -->
+    <h1>
+        Beer Popularity Among Wegmans
+    </h1>
+
+    <!-- Input -->
+    <h3>
+        Pick a city:
+    </h3>
+    <input type="text" id="zoneName" name="zoneName" value="">
+
+    <h3>
+        Choose a beer:
+    </h3>
+    <!-- Beer Buttons -->
     <div class="row">
         <a onclick="run(112985)"><div class="col-sm-4" id="beer-logo-bud"></div></a>
         <a onclick="run(90188)"><div class="col-sm-4" id="beer-logo-coors"></div></a>
         <a onclick="run(237942)"><div class="col-sm-4" id="beer-logo-genny"></div></a>
     </div>
 
-</div>
+    <!-- Chart -->
+    <div class="ct-chart ct-square"></div>
 
+</div>
 
 <script type="text/javascript">
 
+    //create some important vars
+    var chart;
     var authKey = "Bearer ";
     var subKey = "7a2da79699e74dd0af5b8158f6134fbd";
 
+    $( document ).ready(function() {
 
-      //GET KEYS
-      $( document ).ready(function() {
+        //get keys for weggies api
         var settings = {
           "async": true,
           "crossDomain": true,
@@ -95,7 +118,7 @@
         if (event.keyCode === 13) {
           $("#submit").click();
         }
-      });
+    });
 
     var BeerVelocities = [ [], [], [] ]; // Score for each beer type
     var StoreNames = []; // The names of stores seen
@@ -121,7 +144,7 @@
             .done(function(data) {
               for(i = 0; i < data.length; i++) {
                   console.log(data[i].Name);
-                  StoreNames.push(data[i].Name);
+                  StoreNames.push(data[i].Name); //adds store names
                   getAvailabilityAtStore(data[i].StoreNumber, beerID);
               }
             })
@@ -191,9 +214,26 @@
         xhrObj.setRequestHeader("Authorization",authKey);
         xhrObj.setRequestHeader("Availability-Subscription-Key", subKey);
     }
+    document.addEventListener('DOMContentLoaded',function(){
+      chart = new Chartist.Bar('.ct-chart', {
+        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        series: [
+          [5, 4, 3, 7, 5, 10, 3],
+          [3, 2, 9, 5, 4, 6, 4]
+        ]
+      }, {
+        seriesBarDistance: 10,
+        reverseData: true,
+        horizontalBars: true,
+        axisY: {
+          offset: 70
+        }
+      });
+    });
 
 
 </script>
-
+[1, 1, 1, 1, 1, 10, 3],[1, 1, 1, 1, 1, 1, 1]
 </body>
 </html>
+
