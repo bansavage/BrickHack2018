@@ -4,6 +4,11 @@ var chart;
 var authKey = "Bearer ";
 var subKey = "7a2da79699e74dd0af5b8158f6134fbd";
 
+var BeerVelocities = [ [], [], [] ]; // Score for each beer type
+var StoreNames = []; // The names of stores seen
+var BeerSkus = []; // The Skus of beers seen
+var StoreNum = [];
+
 $( document ).ready(function() {
 
   //get keys for weggies api
@@ -37,20 +42,25 @@ $("#zoneName").keyup(function(event) {
   }
 });
 
-var BeerVelocities = [ [], [], [] ]; // Score for each beer type
-var StoreNames = []; // The names of stores seen
-var BeerSkus = []; // The Skus of beers seen
-
-
 function run(beerID){
+
   var zoneName = document.getElementById("zoneName").value;
   //console.log(zoneName);
 
-  if( !BeerSkus.includes(beerID)) {
+  if(StoreNum.length > 0 && !BeerSkus.includes(beerID)) {
+      BeerSkus.push(beerID);
+
+      for(var num in StoreNum) {
+          //console.log(StoreNum[num]);
+          getAvailabilityAtStore(StoreNum[num], beerID);
+      }
+  }
+
+  else if( StoreNum.length == 0 && !BeerSkus.includes(beerID)) {
     BeerSkus.push(beerID);
     //console.log("BEER SKUS: " + BeerSkus.length);
 
-    var promise = $.ajax({
+    $.ajax({
       url: "https://wegmans-es.azure-api.net/locationpublic/location/stores?zoneName=" + zoneName,
       //url: "https://wegmans-es.azure-api.net/productpublic/productavailability/700632/stores",
       beforeSend: setHeaders,
@@ -60,9 +70,11 @@ function run(beerID){
     })
       .done(function(data) {
         for(i = 0; i < data.length; i++) {
-          console.log(data[i].Name);
+          //console.log(data[i].Name);
 
           if(!StoreNames.includes(data[i].Name)) StoreNames.push(data[i].Name); //adds store names
+          if(!StoreNum.includes(data[i].StoreNumber)) StoreNum.push(data[i].StoreNumber);
+
           getAvailabilityAtStore(data[i].StoreNumber, beerID);
         }
       })
@@ -74,6 +86,7 @@ function run(beerID){
   console.log(BeerVelocities);
   console.log(StoreNames);
   console.log(BeerSkus);
+  console.log(StoreNum);
 
 
 //      graphResults(BeerVelocities);
