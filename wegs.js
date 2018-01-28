@@ -46,13 +46,7 @@ $( document ).ready(function() {
 });
 
 //on click change btn to grey
-$("#beer-logo-bud").click(function() {
-  $(this).css("filter","grayscale(1)");
-});
-$("#beer-logo-genny").click(function() {
-  $(this).css("filter","grayscale(1)");
-});
-$("#beer-logo-coors").click(function() {
+$(".logo").click(function() {
   $(this).css("filter","grayscale(1)");
 });
 
@@ -146,6 +140,7 @@ function zoneChanged() {
   console.log("DATA CLEARED!")
   var event = new Event("DOMContentLoaded");
   document.dispatchEvent(event);
+  $(".logo").css("filter","grayscale(0)");
 }
 
 document.addEventListener('DOMContentLoaded',function(){
