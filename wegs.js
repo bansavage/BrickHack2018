@@ -143,6 +143,9 @@ function zoneChanged() {
   BeerVelocities = {};
   StoreNames = [];
   BeerSkus = [];
+  console.log("DATA CLEARED!")
+  var event = new Event("DOMContentLoaded");
+  document.dispatchEvent(event);
 }
 
 document.addEventListener('DOMContentLoaded',function(){
@@ -152,6 +155,7 @@ document.addEventListener('DOMContentLoaded',function(){
     for (key in BeerVelocities) {
         vels.push(BeerVelocities[key]);
     }
+
   chart = new Chartist.Bar('.ct-chart', {
     labels: StoreNames,
     series: vels
