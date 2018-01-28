@@ -69,7 +69,7 @@ async function run(beerID){
 
   var zoneName = document.getElementById("zoneName").value;
   //console.log(zoneName);
-
+  //console.log("Store Length" + StoreNum.length);
   if(StoreNum.length > 0 && !BeerSkus.includes(beerID)) {
       BeerSkus.push(beerID);
 
@@ -96,7 +96,7 @@ async function run(beerID){
         for(i = 0; i < data.length; i++) {
           //console.log(data[i].Name);
 
-          if(!StoreNames.includes(data[i].Name)) StoreNames.push(data[i].Name); //adds store names
+          if(!StoreNames.includes(data[i].Name)) {StoreNames.push(data[i].Name) }; //adds store names
           if(!StoreNum.includes(data[i].StoreNumber)) StoreNum.push(data[i].StoreNumber);
           getAvailabilityAtStore(data[i].StoreNumber, beerID);
         }
@@ -107,7 +107,7 @@ async function run(beerID){
   }
 
   console.log(BeerVelocities);
-  console.log(StoreNames);
+  //console.log("names"); console.log(StoreNames);
   console.log(BeerSkus);
   console.log(StoreNum);
 
@@ -156,7 +156,8 @@ function zoneChanged() {
   BeerVelocities = {};
   StoreNames = [];
   BeerSkus = [];
-  console.log("DATA CLEARED!")
+  StoreNum = [];
+  //console.log("DATA CLEARED!")
   var event = new Event("DOMContentLoaded");
   document.dispatchEvent(event);
   $(".logo").css("filter","grayscale(0)");
@@ -180,11 +181,6 @@ document.addEventListener('DOMContentLoaded',function(){
        seriesBarDistance: 10,
        horizontalBars: true,
        AxisY: 50,
-       //plugins: [
-       //    Chartist.plugins.legend({
-       //        legendNames: BeerSkus
-       //    })
-       //]
 
     };
 
