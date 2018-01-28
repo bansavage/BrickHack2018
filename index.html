@@ -52,6 +52,33 @@
 
 <script type="text/javascript">
 
+    var authKey = "Bearer ";
+
+      //GET KEYS
+      $( document ).ready(function() {
+        var settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "https://login.microsoftonline.com/1318d57f-757b-45b3-b1b0-9b3c3842774f/oauth2/token",
+          "method": "POST",
+          "headers": {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Cache-Control": "no-cache"
+          },
+          "data": {
+            "client_id": "24960d97-4fbe-433d-ab8a-efeb89aa524e",
+            "grant_type": "client_credentials",
+            "resource": "https://wegmans-es.azure-api.net",
+            "client_secret": "A8N7VeeCdFD5N4OxeQT1gFaXNStrxieEplYl3SYdxTs="
+          }
+        };
+
+        $.ajax(settings).done(function (response) {
+          authKey += response.access_token;
+          console.log(authKey);
+        });
+      });
+
       //attach 'enter' key to button
       $("#zoneName").keyup(function(event) {
         if (event.keyCode === 13) {
@@ -60,7 +87,6 @@
       });
 
     function run(){
-      var authKey = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Ino0NHdNZEh1OHdLc3VtcmJmYUs5OHF4czVZSSIsImtpZCI6Ino0NHdNZEh1OHdLc3VtcmJmYUs5OHF4czVZSSJ9.eyJhdWQiOiJodHRwczovL3dlZ21hbnMtZXMuYXp1cmUtYXBpLm5ldCIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzEzMThkNTdmLTc1N2ItNDViMy1iMWIwLTliM2MzODQyNzc0Zi8iLCJpYXQiOjE1MTcwOTE4NDYsIm5iZiI6MTUxNzA5MTg0NiwiZXhwIjoxNTE3MDk1NzQ2LCJhaW8iOiJZMk5nWUZnU3JIZGVmdEZUUHZYRWZuZFdxWXVmQUE9PSIsImFwcGlkIjoiMmZhOGY3MWYtY2VjNS00OWU5LWJkMGEtMjI3ODBkYzI2YTliIiwiYXBwaWRhY3IiOiIxIiwiaWRwIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvMTMxOGQ1N2YtNzU3Yi00NWIzLWIxYjAtOWIzYzM4NDI3NzRmLyIsIm9pZCI6ImY0NTIwYmRmLTc1NWItNGY5Yi1iNWJkLTI4NGJiYTI2MTEwOSIsInN1YiI6ImY0NTIwYmRmLTc1NWItNGY5Yi1iNWJkLTI4NGJiYTI2MTEwOSIsInRpZCI6IjEzMThkNTdmLTc1N2ItNDViMy1iMWIwLTliM2MzODQyNzc0ZiIsInV0aSI6ImhyakZwUVFCZWtPdW9YeG0tT29PQUEiLCJ2ZXIiOiIxLjAifQ.Nyp_p7eR1L3WiY_i283bh1Sxk-R9iWQK3xfqJnM7o684fa9NwZEFCZtaXW8Of0GRbzGfn2gdjPezxVb-qzSn3VLjJ8cseq3TBufmcGlqkY45sVDVw3UylojbRGEt9OELwbqL2fi82BvgulIo-CPQsw-sD_75BooAP_VPUw-NgssMvOHnRqCzUQuomBYRLicebXjq1uC83BkmlBdH37Jbr2NG4cxM_w9xbCjr6VHTjq_FkIbsfVpS_S3t509FQS_HZpZLMzXc_bZJDs_X0m9nxeaxowGL5RFiCQrGK2wpCEKbuDP-bK1b8jfoB5BGzDfDLoUWlHQfLZSPvRRL4l9tBQ";
       var subKey = "7a2da79699e74dd0af5b8158f6134fbd";
 
       var zoneName = document.getElementById("zoneName").value;
