@@ -13,31 +13,8 @@
 </head>
 
 <body>
-<!--
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
--->
 
 <div class="container">
-
     <h1>
         Wegmans API Hackin'
     </h1>
@@ -46,7 +23,6 @@
     <input type="text" id="zoneName" name="zoneName" value="">
     <br>
     <button id="submit" type="button" onclick="run()">Click Me!</button>
-
 </div>
 
 
@@ -92,7 +68,6 @@
       var zoneName = document.getElementById("zoneName").value;
       console.log(zoneName);
 
-
       $.ajax({
         url: "https://wegmans-es.azure-api.net/locationpublic/location/stores?zoneName=" + zoneName,
         //url: "https://wegmans-es.azure-api.net/productpublic/productavailability/700632/stores",
@@ -113,8 +88,40 @@
           /*for(var name in data) {
               console.log(name);
           }*/
-          for(i = 0; i < 50; i++) {
+
+          for(i = 0; i < data.length; i++) {
             console.log(data[i].StoreNumber + ", ");
+            for(b = 0; b < beerSkus.length; b++) {
+
+              $.ajax({
+                url: "https://wegmans-es.azure-api.net/productpublic/productavailability/$data[i]/$beerSkus[i]/",
+                //url: "https://wegmans-es.azure-api.net/productpublic/productavailability/700632/stores",
+                beforeSend: function(xhrObj){
+                  // Request headers
+                  xhrObj.setRequestHeader("Location-Subscription-Key", subKey);
+                  xhrObj.setRequestHeader("Product-Subscription-Key",subKey);
+                  xhrObj.setRequestHeader("Authorization",authKey);
+                  xhrObj.setRequestHeader("Availability-Subscription-Key", subKey);
+
+                },
+                type: "GET",
+                // Request body
+                data: "{body}"
+              })
+                .done(function(availability) {
+                  console.log("success" + availability.Results[0].ItemNumber);
+                  for(var name in availability[0].Results) {
+                    console.log("Velocity for : " + data[i].StoreNumber + " - " + availability.Results[0]);
+                  }
+                  /*for(i = 0; i < availability.length; i++) {
+                    console.log(availability[i].ItemNumber + ", ");
+                  }*/
+                })
+                .fail(function() {
+                  console.log("error");
+                });
+            }
+
           }
         })
         .fail(function() {
