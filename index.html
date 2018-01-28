@@ -10,6 +10,30 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <style>
+
+        #beer-logo-bud{
+            background: url(budlight.jpg);
+        }
+        #beer-logo-coors{
+            background: url(coors.png);
+        }
+        #beer-logo-genny{
+            background: url(genny.jpg);
+        }
+        #beer-logo-bud,#beer-logo-coors,#beer-logo-genny{
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: CONTAIN;
+            BACKGROUND-POSITION: CENTER CENTER;
+            BACKGROUND-REPEAT: NO-REPEAT;
+            height: 10em;
+        }
+        a{
+            cursor:pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -22,7 +46,14 @@
     <br>
     <input type="text" id="zoneName" name="zoneName" value="">
     <br>
-    <button id="submit" type="button" onclick="run()">Click Me!</button>
+    <!-- <button id="submit" type="button" >Click Me!</button> -->
+
+    <div class="row">
+        <a onclick="run(112985)"><div class="col-sm-4" id="beer-logo-bud"></div></a>
+        <a onclick="run(90188)"><div class="col-sm-4" id="beer-logo-coors"></div></a>
+        <a onclick="run(237942)"><div class="col-sm-4" id="beer-logo-genny"></div></a>
+    </div>
+
 </div>
 
 
@@ -66,7 +97,7 @@
 
     var BeerVelocities = {};
 
-    function run(){
+    function run(beerID){
         var zoneName = document.getElementById("zoneName").value;
         console.log(zoneName);
 
@@ -87,7 +118,7 @@
           for(i = 0; i < data.length; i++) {
               console.log(data[i].Name);
 
-              getAvailabilityAtStore(data[i].StoreNumber);
+              getAvailabilityAtStore(data[i].StoreNumber,beerID);
           }
 
 
@@ -103,13 +134,13 @@
     var beerSkus = [ 112985 , 90188, 237942 ]; // Bud light, Genesse, Coors
 
 
-    function getAvailabilityAtStore(storeNum) {
+    function getAvailabilityAtStore(storeNum,beerID) {
      //console.log(storeNum + ", ");
         for(b = 0; b < beerSkus.length; b++) {
             //console.log(beerSkus[b]);
 
             $.ajax({
-                url: "https://wegmans-es.azure-api.net/productpublic/productavailability/" + beerSkus[b] + "/" + storeNum,
+                url: "https://wegmans-es.azure-api.net/productpublic/productavailability/" + beerID + "/" + storeNum,
                 //url: "https://wegmans-es.azure-api.net/productpublic/productavailability/700632/stores",
                 beforeSend: setHeaders,
                 type: "GET",
