@@ -153,10 +153,10 @@ function getAvailabilityAtStore(storeNum,beerID) {
     // Request body
     data: "{body}"
   })
-    .done(function(availability) {
+    .done(async function(availability) {
       //console.log("availability");
       if(BeerVelocities[beerID] == null) BeerVelocities[beerID] = [];
-
+      await sleep(500);
       BeerVelocities[beerID].push(availability[0].Velocity);
       var event = new Event('DOMContentLoaded');
       document.dispatchEvent(event);
