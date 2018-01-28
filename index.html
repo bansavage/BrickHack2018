@@ -71,7 +71,7 @@
         console.log(zoneName);
 
 
-        $.ajax({
+        var promise = $.ajax({
             url: "https://wegmans-es.azure-api.net/locationpublic/location/stores?zoneName=" + zoneName,
             //url: "https://wegmans-es.azure-api.net/productpublic/productavailability/700632/stores",
             beforeSend: setHeaders,
@@ -80,12 +80,13 @@
             data: "{body}"
         })
         .done(function(data) {
-          //console.log("success" + data[0].StoreNumber);
           /*for(var name in data) {
               console.log(name);
           }*/
 
           for(i = 0; i < data.length; i++) {
+              console.log(data[i].Name);
+
               getAvailabilityAtStore(data[i].StoreNumber);
           }
 
@@ -95,10 +96,11 @@
           console.log("error");
         });
 
-
+        //console.log("Num Entries: " + Object.keys(BeerVelocities).length.toString());
+        console.log(BeerVelocities);
     }
 
-    var beerSkus = [ 112985, 90188, 237942 ] // Bud light, Genesse, Coors
+    var beerSkus = [ 112985 , 90188, 237942 ]; // Bud light, Genesse, Coors
 
 
     function getAvailabilityAtStore(storeNum) {
@@ -116,11 +118,11 @@
               })
                 .done(function(availability) {
                     BeerVelocities[
-                        storeNum.toString()+availability[0].Sku.toString()
+                        storeNum.toString()+ "-" + availability[0].Sku.toString()
                     ] = availability[0].Velocity;
 
-                    console.log("availability success!" + " At store " + storeNum + " sku:" + availability[0].Sku + " has velocity of: " + availability[0].Velocity);
-                    console.log(BeerVelocities);
+                    //console.log(" At store " + storeNum + " sku:" + availability[0].Sku + " has velocity of: " + availability[0].Velocity);
+                    //console.log(BeerVelocities);
 
                 })
                 .fail(function() {
