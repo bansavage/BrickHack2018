@@ -157,7 +157,7 @@ function getAvailabilityAtStore(storeNum,beerID) {
       //console.log("availability");
       if(BeerVelocities[beerID] == null) BeerVelocities[beerID] = [];
       await sleep(500);
-      BeerVelocities[beerID].push(availability[0].Velocity);
+      BeerVelocities[beerID].push({key: storeNum, value: availability[0].Velocity});
       var event = new Event('DOMContentLoaded');
       document.dispatchEvent(event);
       //console.log(BeerVelocities);
@@ -193,10 +193,14 @@ document.addEventListener('DOMContentLoaded',function(){
   console.log(BeerVelocities);
   velocities = [];
     for (key in BeerVelocities) {
-        velocities.push(BeerVelocities[key]);
+        v = [];
+        for (k in BeerVelocities[key]) {
+            v[StoreNum.indexOf(BeerVelocities[key][k].key)] = BeerVelocities[key][k];
+        }
+        velocities.push(v);
     }
 
-
+    console.log(velocities);
     var data = {
     labels: StoreNames,
     series: velocities
