@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
     <style>
 
         #beer-logo-bud{
@@ -129,7 +131,35 @@
 
         //console.log("Num Entries: " + Object.keys(BeerVelocities).length.toString());
         console.log(BeerVelocities);
+
+        graphResults(BeerVelocities);
     }
+
+    function graphResults(velocities) {
+        var keys = [];
+
+        for (var key in velocities) {
+            console.log(key);
+            keys.Add(key);
+        }
+        new Chartist.Bar('.ct-chart', {
+          labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+          series: [
+            [5, 4, 3, 7, 5, 10, 3],
+            [3, 2, 9, 5, 4, 6, 4]
+          ]
+        }, {
+          seriesBarDistance: 10,
+          reverseData: true,
+          horizontalBars: true,
+          axisY: {
+            offset: 70
+          }
+        });
+
+
+    }
+
 
     var beerSkus = [ 112985 , 90188, 237942 ]; // Bud light, Genesse, Coors
 
