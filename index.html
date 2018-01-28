@@ -63,7 +63,7 @@
     <h3>
         Pick a city:
     </h3>
-    <input type="text" id="zoneName" name="zoneName" value="">
+    <input type="text" id="zoneName" name="zoneName" value="" onchange="zoneChanged()">
 
     <h3>
         Choose a beer:
@@ -122,16 +122,16 @@
 
     var BeerVelocities = [ [], [], [] ]; // Score for each beer type
     var StoreNames = []; // The names of stores seen
-    var beerSkus = []; // The Skus of beers seen
+    var BeerSkus = []; // The Skus of beers seen
 
 
     function run(beerID){
         var zoneName = document.getElementById("zoneName").value;
         //console.log(zoneName);
 
-        if( !beerSkus.includes(beerID)) {
-            beerSkus.push(beerID);
-            //console.log("BEER SKUS: " + beerSkus.length);
+        if( !BeerSkus.includes(beerID)) {
+            BeerSkus.push(beerID);
+            //console.log("BEER SKUS: " + BeerSkus.length);
 
             var promise = $.ajax({
                 url: "https://wegmans-es.azure-api.net/locationpublic/location/stores?zoneName=" + zoneName,
@@ -156,37 +156,12 @@
 
         console.log(BeerVelocities);
         console.log(StoreNames);
+        console.log(BeerSkus);
 
 
-//        graphResults(BeerVelocities);
+//      graphResults(BeerVelocities);
 
     }
-
-/*    function graphResults(velocities) {
-
-        var keys = [];
-
-        for (var key in velocities) {
-            console.log(key);
-            keys.Add(key);
-        }
-        new Chartist.Bar('.ct-chart', {
-          labels: StoreNames
-          series: [
-            [5, 4, 3, 7, 5, 10, 3],
-            [3, 2, 9, 5, 4, 6, 4]
-          ]
-        }, {
-          seriesBarDistance: 10,
-          reverseData: true,
-          horizontalBars: true,
-          axisY: {
-            offset: 70
-          }
-        });
-
-
-    }*/
 
     function getAvailabilityAtStore(storeNum,beerID) {
             $.ajax({
@@ -199,7 +174,7 @@
               })
                 .done(function(availability) {
                     //console.log("availability");
-                    BeerVelocities[beerSkus.length - 1].push(availability[0].Velocity);
+                    BeerVelocities[BeerSkus.length - 1].push(availability[0].Velocity);
                     var event = new Event('DOMContentLoaded');
                     document.dispatchEvent(event);
                     //console.log(BeerVelocities);
@@ -216,6 +191,12 @@
         xhrObj.setRequestHeader("Product-Subscription-Key",subKey);
         xhrObj.setRequestHeader("Authorization",authKey);
         xhrObj.setRequestHeader("Availability-Subscription-Key", subKey);
+    }
+
+    function zoneChanged() {
+        BeerVelocities = [ [], [], [] ];
+        StoreNames = [];
+        BeerSkus = [];
     }
 
     document.addEventListener('DOMContentLoaded',function(){
@@ -238,6 +219,7 @@
         }
       });
     });
+
 
 
 </script>
