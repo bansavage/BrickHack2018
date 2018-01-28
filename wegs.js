@@ -35,11 +35,15 @@ $( document ).ready(function() {
   });
 });
 
-//attach 'enter' key to button
-$("#zoneName").keyup(function(event) {
-  if (event.keyCode === 13) {
-    $("#submit").click();
-  }
+//on click change btn to grey
+$("#beer-logo-bud").click(function() {
+  $(this).css("filter","grayscale(1)");
+});
+$("#beer-logo-genny").click(function() {
+  $(this).css("filter","grayscale(1)");
+});
+$("#beer-logo-coors").click(function() {
+  $(this).css("filter","grayscale(1)");
 });
 
 function run(beerID){

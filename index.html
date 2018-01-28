@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Popular Beers</title>
+    <title>Popular Beers: BrickHack 2018</title>
+    <!-- jQuery -->
     <script
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- Chartist -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
     <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
     <!-- Custom styles -->
     <link rel="stylesheet" href="main.css">
+    <script>
+      $( function() {
+        $( "#zoneName" ).selectmenu();
+      } );
+    </script>
 </head>
 
 <body>
@@ -28,9 +36,14 @@
 
     <!-- Input -->
     <h3>
-        Pick a city:
+        Select a city
     </h3>
-    <input type="text" id="zoneName" name="zoneName" value="" onchange="zoneChanged()">
+    <select name="zoneName" id="zoneName" onchange="zoneChanged()">
+        <option>Rochester</option>
+        <option>Buffalo</option>
+        <option selected="selected">Syracuse</option>
+    </select>
+
     <h3>
         Choose a beer:
     </h3>
@@ -52,4 +65,3 @@
 
 </body>
 </html>
-
