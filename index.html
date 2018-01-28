@@ -29,6 +29,8 @@
 <script type="text/javascript">
 
     var authKey = "Bearer ";
+    var subKey = "7a2da79699e74dd0af5b8158f6134fbd";
+
 
       //GET KEYS
       $( document ).ready(function() {
@@ -63,22 +65,14 @@
       });
 
     function run(){
-      var subKey = "7a2da79699e74dd0af5b8158f6134fbd";
+        var zoneName = document.getElementById("zoneName").value;
+        console.log(zoneName);
 
-      var zoneName = document.getElementById("zoneName").value;
-      console.log(zoneName);
 
       $.ajax({
         url: "https://wegmans-es.azure-api.net/locationpublic/location/stores?zoneName=" + zoneName,
         //url: "https://wegmans-es.azure-api.net/productpublic/productavailability/700632/stores",
-        beforeSend: function(xhrObj){
-          // Request headers
-          xhrObj.setRequestHeader("Location-Subscription-Key", subKey);
-          xhrObj.setRequestHeader("Product-Subscription-Key",subKey);
-          xhrObj.setRequestHeader("Authorization",authKey);
-          xhrObj.setRequestHeader("Availability-Subscription-Key", subKey);
-
-        },
+        beforeSend: setHeaders,
         type: "GET",
         // Request body
         data: "{body}"
@@ -90,44 +84,54 @@
           }*/
 
           for(i = 0; i < data.length; i++) {
-            console.log(data[i].StoreNumber + ", ");
-            for(b = 0; b < beerSkus.length; b++) {
+              getAvailabilityAtStore(data[i].StoreNumber);
+          }
 
-              $.ajax({
-                url: "https://wegmans-es.azure-api.net/productpublic/productavailability/$data[i]/$beerSkus[i]/",
+        })
+        .fail(function() {
+          console.log("error");
+        });
+
+
+    }
+
+    var beerSkus = [ 112985, 90188, 237942 ] // Bud light, Genesse, Coors
+
+
+    function getAvailabilityAtStore(storeNum) {
+     console.log(storeNum + ", ");
+        for(b = 0; b < beerSkus.length; b++) {
+            console.log(beerSkus[b]);
+            $.ajax({
+                url: "https://wegmans-es.azure-api.net/productpublic/productavailability/" + beerSkus[b] + "/" + storeNum,
                 //url: "https://wegmans-es.azure-api.net/productpublic/productavailability/700632/stores",
-                beforeSend: function(xhrObj){
-                  // Request headers
-                  xhrObj.setRequestHeader("Location-Subscription-Key", subKey);
-                  xhrObj.setRequestHeader("Product-Subscription-Key",subKey);
-                  xhrObj.setRequestHeader("Authorization",authKey);
-                  xhrObj.setRequestHeader("Availability-Subscription-Key", subKey);
-
-                },
+                beforeSend: setHeaders,
                 type: "GET",
                 // Request body
                 data: "{body}"
               })
                 .done(function(availability) {
-                  console.log("success" + availability.Results[0].ItemNumber);
-                  for(var name in availability[0].Results) {
-                    console.log("Velocity for : " + data[i].StoreNumber + " - " + availability.Results[0]);
+                  console.log("availability success!" + availability[0]);
+                  for(var name in availability) {
+                      console.log("Velocity for : " + storeNum + " - " + name);
                   }
-                  /*for(i = 0; i < availability.length; i++) {
-                    console.log(availability[i].ItemNumber + ", ");
-                  }*/
                 })
                 .fail(function() {
                   console.log("error");
                 });
-            }
 
-          }
-        })
-        .fail(function() {
-          console.log("error");
-        });
+
+       }
     }
+
+    function setHeaders(xhrObj) {
+        xhrObj.setRequestHeader("Location-Subscription-Key", subKey);
+        xhrObj.setRequestHeader("Product-Subscription-Key",subKey);
+        xhrObj.setRequestHeader("Authorization",authKey);
+        xhrObj.setRequestHeader("Availability-Subscription-Key", subKey);
+    }
+
+
 </script>
 
 </body>
