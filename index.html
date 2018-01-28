@@ -144,7 +144,8 @@
             .done(function(data) {
               for(i = 0; i < data.length; i++) {
                   console.log(data[i].Name);
-                  StoreNames.push(data[i].Name); //adds store names
+
+                  if(!StoreNames.includes(data[i].Name)) StoreNames.push(data[i].Name); //adds store names
                   getAvailabilityAtStore(data[i].StoreNumber, beerID);
               }
             })
@@ -199,6 +200,8 @@
                 .done(function(availability) {
                     //console.log("availability");
                     BeerVelocities[beerSkus.length - 1].push(availability[0].Velocity);
+                    var event = new Event('DOMContentLoaded');
+                    document.dispatchEvent(event);
                     //console.log(BeerVelocities);
 
                 })
@@ -214,12 +217,17 @@
         xhrObj.setRequestHeader("Authorization",authKey);
         xhrObj.setRequestHeader("Availability-Subscription-Key", subKey);
     }
+
     document.addEventListener('DOMContentLoaded',function(){
+      //console.log(StoreNames);
+      console.log(BeerVelocities);
+
       chart = new Chartist.Bar('.ct-chart', {
-        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        labels: StoreNames,
         series: [
-          [5, 4, 3, 7, 5, 10, 3],
-          [3, 2, 9, 5, 4, 6, 4]
+          BeerVelocities[0],
+          BeerVelocities[1],
+          BeerVelocities[2]
         ]
       }, {
         seriesBarDistance: 10,
