@@ -111,10 +111,8 @@
                 data: "{body}"
               })
                 .done(function(availability) {
-                  console.log("availability success!" + availability[0]);
-                  for(var name in availability) {
-                      console.log("Velocity for : " + storeNum + " - " + name);
-                  }
+                  console.log("availability success!" + " At store " + storeNum + " sku:" + availability[0].Sku + " has velocity of: " + availability[0].Velocity);
+
                 })
                 .fail(function() {
                   console.log("error");
