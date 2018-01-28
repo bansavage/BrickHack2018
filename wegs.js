@@ -65,7 +65,7 @@ $(".logo").click(function() {
   $(this).css("filter","grayscale(1)");
 });
 
-function run(beerID){
+async function run(beerID){
 
   var zoneName = document.getElementById("zoneName").value;
   //console.log(zoneName);
@@ -82,6 +82,7 @@ function run(beerID){
   else if( StoreNum.length == 0 && !BeerSkus.includes(beerID)) {
     BeerSkus.push(beerID);
     //console.log("BEER SKUS: " + BeerSkus.length);
+    await sleep(500);
 
     $.ajax({
       url: "https://wegmans-es.azure-api.net/locationpublic/location/stores?zoneName=" + zoneName,
@@ -91,13 +92,12 @@ function run(beerID){
       // Request body
       data: "{body}"
     })
-      .done(function(data) {
+      .done(async function(data) {
         for(i = 0; i < data.length; i++) {
           //console.log(data[i].Name);
 
           if(!StoreNames.includes(data[i].Name)) StoreNames.push(data[i].Name); //adds store names
           if(!StoreNum.includes(data[i].StoreNumber)) StoreNum.push(data[i].StoreNumber);
-
           getAvailabilityAtStore(data[i].StoreNumber, beerID);
         }
       })
@@ -115,6 +115,10 @@ function run(beerID){
 //      graphResults(BeerVelocities);
 
 }
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 
 function getAvailabilityAtStore(storeNum,beerID) {
   $.ajax({
@@ -166,6 +170,7 @@ document.addEventListener('DOMContentLoaded',function(){
         velocities.push(BeerVelocities[key]);
     }
 
+
     var data = {
     labels: StoreNames,
     series: velocities
@@ -174,7 +179,12 @@ document.addEventListener('DOMContentLoaded',function(){
     var options = {
        seriesBarDistance: 10,
        horizontalBars: true,
-       AxisY: 50
+       AxisY: 50,
+       //plugins: [
+       //    Chartist.plugins.legend({
+       //        legendNames: BeerSkus
+       //    })
+       //]
 
     };
 
