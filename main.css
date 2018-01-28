@@ -46,9 +46,8 @@
 a{
     cursor:pointer;
 }
-
 #zoneName{
-    margin-bottom: 2em;
+    font-size:1.5em;
 }
 #select-label{
     margin-top: 0;
