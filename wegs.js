@@ -8,6 +8,17 @@ var BeerVelocities = {}; // Score for each beer type
 var StoreNames = []; // The names of stores seen
 var BeerSkus = []; // The Skus of beers seen
 var StoreNum = [];
+/*
+325152 //rolling rock
+127425 //miller high life
+129182//miller lite
+90185 //genny cream ale
+232673 //keystone light
+282162 //labat blue
+173308 //pbr
+274681 //natty light
+166446 //budweiser
+*/
 
 $( document ).ready(function() {
 
@@ -132,10 +143,7 @@ function zoneChanged() {
   BeerVelocities = {};
   StoreNames = [];
   BeerSkus = [];
-  console.log("DATA CLEARED");
 }
-
-
 
 document.addEventListener('DOMContentLoaded',function(){
   //console.log(StoreNames);

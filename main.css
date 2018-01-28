@@ -1,33 +1,65 @@
+
 #beer-logo-bud{
-    background: url(budlight.jpg);
+    background: url(img/budlight.jpg);
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 #beer-logo-coors{
-    background: url(coors.png);
+    background: url(img/coors.png);
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 #beer-logo-genny{
-    background: url(genny.jpg);
+    background: url(img/genny.jpg);
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
-#beer-logo-bud,#beer-logo-coors,#beer-logo-genny{
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: CONTAIN;
-    background-position: CENTER CENTER;
-    background-repeat: NO-REPEAT;
+#beer-logo-miller-high{
+    background: url(img/millerhigh.jpg);
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+#beer-logo-rock{
+    background: url(img/rollingrock.png);
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+#beer-logo-pbr{
+    background: url(img/pbr.jpg);
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.logo{
     height: 10em;
+    transition:.3s;
+}
+.logo:hover{
+    height: 11em !important;
+    margin-bottom: -1em;
 }
 a{
     cursor:pointer;
 }
-.col-sm-4:hover{
-    border:1px solid #333;
-}
+
 #zoneName{
     margin-bottom: 2em;
 }
-h1{
-    background: black;
-    color: white;
-    padding: .25em;
-    text-align: center;
+#select-label{
+    margin-top: 0;
+}
+#beer-label{
+    margin-top: 40px;
+}
+.jumbotron {
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+.ct-chart{
+    margin-top:3em;
 }

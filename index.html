@@ -18,40 +18,48 @@
     <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
     <!-- Custom styles -->
     <link rel="stylesheet" href="main.css">
+    <!--
     <script>
       $( function() {
         $( "#zoneName" ).selectmenu();
       } );
-    </script>
+    </script> -->
 </head>
 
 <body>
 
+<!-- Title -->
+<div class="jumbotron">
+    <div class="container">
+        <h1>Beer Popularity @ Wegmans</h1>
+        <p>
+            A simple web app for comparing popular beers across multiple Wegmans.
+        </p>
+    </div>
+</div>
+
 <div class="container">
-
-    <!-- Title -->
-    <h1>
-        Beer Popularity Among Wegmans
-    </h1>
-
     <!-- Input -->
-    <h3>
+    <h3 id="select-label">
         Select a city
     </h3>
     <select name="zoneName" id="zoneName" onchange="zoneChanged()">
         <option>Rochester</option>
         <option>Buffalo</option>
-        <option selected="selected">Syracuse</option>
+        <option>Syracuse</option>
     </select>
 
-    <h3>
+    <h3 id="beer-label">
         Choose a beer:
     </h3>
     <!-- Beer Buttons -->
     <div class="row">
-        <a onclick="run(112985)"><div class="col-sm-4" id="beer-logo-bud"></div></a>
-        <a onclick="run(90188)"><div class="col-sm-4" id="beer-logo-coors"></div></a>
-        <a onclick="run(237942)"><div class="col-sm-4" id="beer-logo-genny"></div></a>
+        <a onclick="run(112985)"><div class="col-md-2 col-sm-6 logo" id="beer-logo-bud"></div></a>
+        <a onclick="run(90188)"><div class="col-md-2 col-sm-6 logo" id="beer-logo-coors"></div></a>
+        <a onclick="run(237942)"><div class="col-md-2 col-sm-6 logo" id="beer-logo-genny"></div></a>
+        <a onclick="run(127425)"><div class="col-md-2 col-sm-6 logo" id="beer-logo-miller-high"></div></a>
+        <a onclick="run(325152)"><div class="col-md-2 col-sm-6 logo" id="beer-logo-rock"></div></a>
+        <a onclick="run(173308)"><div class="col-md-2 col-sm-6 logo" id="beer-logo-pbr"></div></a>
     </div>
 
     <!-- Chart -->
@@ -65,3 +73,4 @@
 
 </body>
 </html>
+
