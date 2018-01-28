@@ -185,6 +185,7 @@ function zoneChanged() {
   var event = new Event("DOMContentLoaded");
   document.dispatchEvent(event);
   $(".logo").css("filter","grayscale(0)");
+  $(".keynum").text("");
 }
 
 document.addEventListener('DOMContentLoaded',function(){
