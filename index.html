@@ -64,21 +64,23 @@
         }
       });
 
+    var BeerVelocities = {};
+
     function run(){
         var zoneName = document.getElementById("zoneName").value;
         console.log(zoneName);
 
 
-      $.ajax({
-        url: "https://wegmans-es.azure-api.net/locationpublic/location/stores?zoneName=" + zoneName,
-        //url: "https://wegmans-es.azure-api.net/productpublic/productavailability/700632/stores",
-        beforeSend: setHeaders,
-        type: "GET",
-        // Request body
-        data: "{body}"
-      })
+        $.ajax({
+            url: "https://wegmans-es.azure-api.net/locationpublic/location/stores?zoneName=" + zoneName,
+            //url: "https://wegmans-es.azure-api.net/productpublic/productavailability/700632/stores",
+            beforeSend: setHeaders,
+            type: "GET",
+            // Request body
+            data: "{body}"
+        })
         .done(function(data) {
-          console.log("success" + data[0].StoreNumber);
+          //console.log("success" + data[0].StoreNumber);
           /*for(var name in data) {
               console.log(name);
           }*/
@@ -86,6 +88,7 @@
           for(i = 0; i < data.length; i++) {
               getAvailabilityAtStore(data[i].StoreNumber);
           }
+
 
         })
         .fail(function() {
@@ -99,9 +102,10 @@
 
 
     function getAvailabilityAtStore(storeNum) {
-     console.log(storeNum + ", ");
+     //console.log(storeNum + ", ");
         for(b = 0; b < beerSkus.length; b++) {
-            console.log(beerSkus[b]);
+            //console.log(beerSkus[b]);
+
             $.ajax({
                 url: "https://wegmans-es.azure-api.net/productpublic/productavailability/" + beerSkus[b] + "/" + storeNum,
                 //url: "https://wegmans-es.azure-api.net/productpublic/productavailability/700632/stores",
@@ -111,7 +115,12 @@
                 data: "{body}"
               })
                 .done(function(availability) {
-                  console.log("availability success!" + " At store " + storeNum + " sku:" + availability[0].Sku + " has velocity of: " + availability[0].Velocity);
+                    BeerVelocities[
+                        storeNum.toString()+availability[0].Sku.toString()
+                    ] = availability[0].Velocity;
+
+                    console.log("availability success!" + " At store " + storeNum + " sku:" + availability[0].Sku + " has velocity of: " + availability[0].Velocity);
+                    console.log(BeerVelocities);
 
                 })
                 .fail(function() {
@@ -120,6 +129,7 @@
 
 
        }
+
     }
 
     function setHeaders(xhrObj) {
