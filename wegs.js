@@ -1,4 +1,19 @@
+/*
+   Copyright 2018 Connor Dimaio & Kyle Bansavage
 
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+//require('./node_modules/chartist-plugin-legend/chartist-plugin-legend.js');
 //create some important vars
 var chart;
 var authKey = "Bearer ";
@@ -146,20 +161,34 @@ function zoneChanged() {
 document.addEventListener('DOMContentLoaded',function(){
   //console.log(StoreNames);
   console.log(BeerVelocities);
-  vels = [];
+  velocities = [];
     for (key in BeerVelocities) {
-        vels.push(BeerVelocities[key]);
+        velocities.push(BeerVelocities[key]);
     }
 
-  chart = new Chartist.Bar('.ct-chart', {
+    var data = {
     labels: StoreNames,
-    series: vels
-  }, {
-    seriesBarDistance: 20,
-    reverseData: true,
-    horizontalBars: true,
-    axisY: {
-      offset: 50
-    }
-  });
+    series: velocities
+    };
+
+    var options = {
+       seriesBarDistance: 10,
+       horizontalBars: true,
+       AxisY: 50
+
+    };
+
+    var responsiveOptions = [
+      ['screen and (max-width: 640px)', {
+        seriesBarDistance: 15,
+        axisX: {
+        labelInterpolationFnc: function (value) {
+          return value[0];
+        }
+        }
+      }]
+    ];
+
+new Chartist.Bar('.ct-chart', data, options, responsiveOptions);
+
 });
